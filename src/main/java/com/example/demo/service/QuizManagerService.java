@@ -51,5 +51,18 @@ public class QuizManagerService {
         }
     }
 
+    public void deleteById(String id) {
+        if (hasRoleAdmin()) {
+            quizRepository.deleteById(id);
+        }
+    }
 
+    private boolean hasRoleAdmin() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!authentication.getAuthorities().toArray()[0].toString().equals("ADMIN")) {
+            log.debug("User " + authentication.getName() + " try to call this method without grant ADMIN");
+            return false;
+        }
+        return true;
+    }
 }
