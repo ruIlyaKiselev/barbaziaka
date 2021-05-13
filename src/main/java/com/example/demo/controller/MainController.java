@@ -36,7 +36,7 @@ public class MainController {
         Iterable<Message> messages = messageRepo.findAll();
 
         if (filter != null && !filter.isEmpty()) {
-            messages = messageRepo.findByTag(filter);
+            messages = messageRepo.findByTitle(filter);
         } else {
             messages = messageRepo.findAll();
         }
@@ -50,11 +50,11 @@ public class MainController {
     @PostMapping("/main")
     public String add(
             @AuthenticationPrincipal User user,
-            @RequestParam String text,
-            @RequestParam String tag, Map<String, Object> model,
+            @RequestParam String description,
+            @RequestParam String title, Map<String, Object> model,
             @RequestParam("file") MultipartFile file
     ) throws IOException {
-        Message message = new Message(text, tag, user);
+        Message message = new Message(description, title, user);
 
         if (file != null && !file.getOriginalFilename().isEmpty()) {
             File uploadDir = new File(uploadPath);

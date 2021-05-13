@@ -8,8 +8,8 @@ public class Message {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
-    private String text;
-    private String tag;
+    private String title;
+    private String description;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
@@ -20,10 +20,10 @@ public class Message {
     public Message() {
     }
 
-    public Message(String text, String tag, User user) {
+    public Message(String description, String title, User user) {
         this.author = user;
-        this.text = text;
-        this.tag = tag;
+        this.description = description;
+        this.title = title;
     }
 
     public String getAuthorName() {
@@ -38,12 +38,12 @@ public class Message {
         this.author = author;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setDescription(String text) {
+        this.description = text;
     }
 
-    public String getText() {
-        return text;
+    public String getDescription() {
+        return description;
     }
 
     public Integer getId() {
@@ -54,12 +54,12 @@ public class Message {
         this.id = id;
     }
 
-    public String getTag() {
-        return tag;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setTitle(String tag) {
+        this.title = tag;
     }
 
     public String getFilename() {
