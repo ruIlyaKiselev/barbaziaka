@@ -1,11 +1,9 @@
 package com.example.demo.domain;
 
-import org.springframework.security.core.GrantedAuthority;
-
 import javax.persistence.*;
 
 @Entity
-public class QuizTags {
+public class QuizGame {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
@@ -19,10 +17,10 @@ public class QuizTags {
 
     private String filename;
 
-    public QuizTags() {
+    public QuizGame() {
     }
 
-    public QuizTags(String text, String tag, User user) {
+    public QuizGame(String text, String tag, User user) {
         this.author = user;
         this.text = text;
         this.tag = tag;
@@ -71,4 +69,6 @@ public class QuizTags {
     public void setFilename(String filename) {
         this.filename = filename;
     }
+
+
 }
