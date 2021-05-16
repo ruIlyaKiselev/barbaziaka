@@ -1,6 +1,9 @@
 package com.example.demo.domain;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Message {
@@ -8,7 +11,12 @@ public class Message {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
+    @NotBlank(message = "Please fill the title")
+    @Length(max = 255, message = "Title too long (more then 255 byte)")
     private String title;
+
+    @NotBlank(message = "Please fill the description")
+    @Length(max = 2047, message = "Description too long (more then 2kB)")
     private String description;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -69,6 +77,5 @@ public class Message {
     public void setFilename(String filename) {
         this.filename = filename;
     }
-
 
 }

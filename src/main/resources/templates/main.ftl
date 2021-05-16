@@ -14,10 +14,24 @@
         <div class="form-group mt-3">
             <form method="post" enctype="multipart/form-data">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="title" placeholder="Title">
+<#--                    <input type="text" class="form-control" name="title" placeholder="Title">-->
+                    <input type="text" class="form-control ${(titleError??)?string('is-invalid', '')}"
+                           value="<#if message??>${message.title}</#if>" name="title" placeholder="Title">
+                    <#if titleError??>
+                        <div class="invalid-feedback">
+                            ${titleError}
+                        </div>
+                    </#if>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" name="description" placeholder="Description" />
+<#--                    <input type="text" class="form-control" name="description" placeholder="Description" />-->
+                    <input type="text" class="form-control ${(descriptionError??)?string('is-invalid', '')}"
+                           value="<#if message??>${message.description}</#if>" name="description" placeholder="Description">
+                    <#if descriptionError??>
+                        <div class="invalid-feedback">
+                            ${descriptionError}
+                        </div>
+                    </#if>
                 </div>
                 <div class="form-group">
                     <div class="custom-file">
