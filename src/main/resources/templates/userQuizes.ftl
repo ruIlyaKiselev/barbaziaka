@@ -33,6 +33,7 @@
             </div>
         </div>
     </div>
+
     <#if isCurrentUser>
         <#include "parts/quizEdit.ftl" />
     </#if>
