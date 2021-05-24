@@ -45,6 +45,27 @@ public class UserService implements UserDetailsService {
         }
     }
 
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) {
+        User user = userRepository.findByUsername(username);
+
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+
+        List<SimpleGrantedAuthority> authorities = Arrays.asList(new SimpleGrantedAuthority(user.getRoles()));
+
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
+    }
+
+    public void deleteUserById(String id) {
+        userRepository.deleteById(id);
+    }
+
 
 }
 
