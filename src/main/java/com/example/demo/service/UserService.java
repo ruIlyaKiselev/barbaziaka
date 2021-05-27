@@ -66,6 +66,26 @@ public class UserService implements UserDetailsService {
         userRepository.deleteById(id);
     }
 
+    public String getCurrentUserName() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getName();
+    }
+
+    public boolean saveNewUser(String username, String password, String role) {
+        if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
+            throw new IllegalArgumentException("User can't have empty name or password!");
+        }
+        if (hasUserUniqueName(username)) {
+            userRepository.save(User.builder()
+                    .username(username)
+                    .password(new BCryptPasswordEncoder().encode(password))
+                    .roles(role)
+                    .build());
+            return true;
+        }
+        return false;
+    }
+
 
 }
 
