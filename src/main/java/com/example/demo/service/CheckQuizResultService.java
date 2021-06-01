@@ -53,4 +53,27 @@ public class CheckQuizResultService {
         return saveQuizResultService.saveQuizResult(quiz, calculateResults, emailAddress);
     }
 
+    public int calculateUsersRightAnswers(UserAnswersContainer userAnswersContainer, List<Question> questions) {
+        int correctAnswers = 0;
+
+
+        for (Question question : questions) {
+            Set<String> userAnswers = userAnswersContainer.getQuestionIdToAnswerId().get(question.get_id());
+            Set<String> correctAnswerIdsFromDb = getCorrectAnswers(question);
+
+            if (correctAnswerIdsFromDb.containsAll(userAnswers)) {
+                correctAnswers += 1;
+            }
+        }
+        return correctAnswers;
+    }
+
+    public double calculateResults(int questionsInQuizQuantity, int usersCorrectAnswersQuantity) {
+        double result = (double) usersCorrectAnswersQuantity / questionsInQuizQuantity;
+        double roundedResult = BigDecimal.valueOf(result)
+                .setScale(2, RoundingMode.FLOOR).doubleValue();
+
+        return roundedResult * 100;
+    }
+
 }
