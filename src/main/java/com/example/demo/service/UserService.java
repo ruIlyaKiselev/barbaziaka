@@ -86,6 +86,19 @@ public class UserService implements UserDetailsService {
         return false;
     }
 
+    private boolean hasUserUniqueName(String username) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("username").is(username));
+        List<User> users = mongoTemplate.find(query, User.class);
+        return users.isEmpty();
+    }
 
+    public String getCurrentUserRole() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getAuthorities()
+                .stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
+    }
 }
 
