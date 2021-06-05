@@ -4,6 +4,7 @@ import getCurrentHostName from "../../util/getCurrentHostName";
 import {Link} from "react-router-dom";
 import uuidv1 from "uuid/v1"
 
+class AdminHomePage extends React.Component {
 
     componentDidMount() {
         this.getListOfQuizzesFromServer()
@@ -55,6 +56,17 @@ import uuidv1 from "uuid/v1"
                 }
             </div>
         )
+    }
+
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            apiData: [],
+            wasFetched: true,
+            error: null
+        };
     }
 
     getCreateQuizButton() {
